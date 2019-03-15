@@ -1,0 +1,31 @@
+<% if flash.now[:error] %>
+	<strong class="error"><%= flash.now[:error] %></strong>
+<% end %>
+
+<br><br><br>
+
+<%= form_tag("/home", method: "get") do %>
+  <%= label_tag(:input_values, "Input Values:") %>
+  <%= text_area_tag(:input_values) %>
+  <%= select_tag(:column_count, options_for_select((2..10).to_a)) %>
+  <%= submit_tag("Display") %>
+<% end %>
+
+<br><br><br>
+
+<% if @data_for_table %>
+	<table>
+		<tr>
+			<% (1..@column_count).to_a.each do |column_num| %>
+				<th><%= column_num %></th>
+			<% end %>
+		</tr>
+		<% @data_for_table.each do |row| %>
+			<tr>
+				<% row.each do |table_data| %>
+					<td><%= table_data %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
